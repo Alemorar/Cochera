@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="aplicacion.modelo.dominio.GuiaPrecio" table="GUIAS_PRECIOS">
+      <id name="codigo" type="integer">
+          <column name="CODIGO"/>
+          <generator class="increment"/>          
+      </id>
+      <property name="tipoVehiculo" type="string">
+          <column name="TIPO_VEHICULO" length="10"/>
+      </property>
+      <property name="precio" type="double">
+          <column name="PRECIO" precision="5" scale="2"/>
+      </property>
+  </class>
+</hibernate-mapping>

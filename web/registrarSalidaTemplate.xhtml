@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <body>
+
+        <ui:composition template="./templates/templateCochera.xhtml">
+            <!--            <ui:define name="top"></ui:define>-->
+            <ui:define name="content">
+                <p:panel id="pnlRegistrarEntrada" header="Gestion Salida de Vehiculo">
+                    <h:form id="form">
+                        <p:dataTable value="#{registroEstacionamientoFormBean.registrosEntradas}"
+                                     var="regEntrada">
+
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{regEntrada.codigo}"/>                          
+                            </p:column>
+                            <p:column headerText="Fecha">
+                                <p:calendar id="Fecha" disabled="true" pattern="dd/MM/yyyy" value="#{regEntrada.fecha}"
+                                            styleClass="tds-input-text-or-calendar"/>
+                            </p:column>
+                            <p:column headerText="Patente">
+                                <h:outputText value="#{regEntrada.patente}" style="text-transform: uppercase"/>                          
+                            </p:column>
+                            <p:column headerText="Tipo de Vehiculo">
+                                <h:outputText value="#{regEntrada.guiaPrecio.tipoVehiculo}"/>                          
+                            </p:column>
+                            <p:column headerText="Hora Entrada">
+                                <p:calendar id="hEntrada" disabled="true" pattern="HH:mm" timeOnly="true" value="#{regEntrada.hEntrada}"/>
+                            </p:column>
+                            <p:column headerText="Hora Salida" style="alignment-adjust: central">
+                                <p:calendar id="hSalida" disabled="true" pattern="HH:mm" timeOnly="true" value="#{regEntrada.hSalida}"
+                                            />
+                            </p:column>
+                            <p:column headerText="Precio por Hora" style="text-align: right">
+                                <h:outputText value="#{regEntrada.guiaPrecio.precio}" />                          
+                            </p:column>
+                            <p:column headerText="Precio Total" style="text-align: right">
+                                <h:outputText value="#{regEntrada.precioTotal}"/>                          
+                            </p:column>
+
+                            <p:column headerText="Finalizar" style="text-align: center" >
+                                <p:commandButton value="Cerrar" update=":form" actionListener="#{registroEstacionamientoFormBean.establecerElegido(regEntrada)}" update=":form"/>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:confirmDialog global="false" showEffect="fade" hideEffect="fade"
+                                         header="Confirmacion" message="Confirma cerrar salida?" widgetVar="confirmaRegistrarSalida">
+                            <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes" 
+                                             icon="ui-icon-close" 
+                                             actionListener="#{registroEstacionamientoFormBean.actualizarEstacionamiento()}"
+                                             update=":form"
+                                             oncomplete="PF('confirmaRegistrarSalida').hide"/>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" 
+                                             icon="ui-icon-close"
+                                             oncomplete="PF('confirmaRegistrarSalida').hide"/>
+                        </p:confirmDialog>
+                    </h:form>            
+                </p:panel>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

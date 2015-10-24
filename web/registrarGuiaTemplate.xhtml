@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./templates/templateCochera.xhtml">
+            <!--<ui:define name="top"></ui:define>-->
+
+            <ui:define name="content">
+                <p:panel id="pnlCrearGuiaPrecio" header="RegistrarGuiaPrecio">
+                    <h:form id="fmrCrearGuiaPrecio">
+                        <h:panelGrid id="grdCrearGuiaPrecio" columns="3" cellpadding="3">
+                            <p:outputLabel id="lblTipoVehiculo" for="txtTipoVehiculo"
+                                           value="Tipo de Vehiculo"/>
+                            <p:inputText id="txtTipoVehiculo" required="true"
+                                         maxlength="15" size="17"
+                                         value="#{guiaPrecioFormBean.guiaPrecioBean.guiaPrecio.tipoVehiculo}"/>
+                            <p:message for="txtTipoVehiculo"/>
+                            <p:outputLabel id="lblPrecio" for="txtPrecio"
+                                           value="Precio:"/>
+                            <p:spinner id="txtPrecio" prefix="$" min="0" max="100"
+                                       required="true"
+                                       value="#{guiaPrecioFormBean.guiaPrecioBean.guiaPrecio.precio}"/>
+                            <p:message for="txtPrecio"/>
+                            <h:panelGroup/>
+                            <p:commandButton id="btnGrabarGuia" value="Grabar"
+                                             update="grdCrearGuiaPrecio"
+                                             actionListener="#{guiaPrecioFormBean.mostrarConfirmacionNuevaGuia()}"/>                    
+                        </h:panelGrid>
+                        <p:confirmDialog global="false" showEffect="fade" hideEffect="fade"
+                                         header="Confirmacion" message="¿Confirma agregar nueva Guia de Precio?"
+                                         widgetVar="confirmaRegistrarGuia">
+                            <p:commandButton value="si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                             actionListener="#{guiaPrecioFormBean.grabarGuia()}"/>
+                            <p:commandButton value="no" styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+                                             oncomplete="PF('confirmaRegistrarGuia').hide()"/>
+                        </p:confirmDialog>
+                    </h:form>            
+                </p:panel>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

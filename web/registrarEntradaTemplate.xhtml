@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/templateCochera.xhtml">
+            <!--<ui:define name="top"></ui:define>-->
+            <ui:define name="content">
+                <p:panel id="pnlRegistrarEntrada" header="Registrar Entrada de Vehiculo">
+                    <h:form id="frmRegistrarEntradaDeVehiculo">
+                        <p:growl id="mensajes" sticky="true" showDetail="true"/>
+                        <h:panelGrid id="grdRegistrarEntradaDeVehiculo" columns="2"
+                                     cellpadding="3">
+                            <p:outputLabel id="lblPatente" for="txtPatente"
+                                           value="Patente:"/>
+                            <p:inputText id="txtPatente" required="true" style="text-transform: uppercase"
+                                         maxlength="6" size="6"
+                                         value="#{registroEstacionamientoFormBean.registroEstacionamientoBean.registroEstacionamiento.patente}">
+                                <p:ajax event="change" listener="#{registroEstacionamientoFormBean.actualizarHoraEntrada()}" 
+                                        update="grdRegistrarEntradaDeVehiculo" />
+                            </p:inputText>
+                            <p:outputLabel id="lblTipoVehiculo" for="cmbTipoVehiculos"
+                                           value="Tipo de Vehiculo:"/>
+                            <p:selectOneMenu id="cmbTipoVehiculos" required="true"
+                                             style="width: 125px;"
+                                             value="#{registroEstacionamientoFormBean.registroEstacionamientoBean.registroEstacionamiento.guiaPrecio.codigo}">
+
+                                <f:selectItems value="#{guiaPrecioFormBean.guias}" var="guia" itemLabel="#{guia.tipoVehiculo}" itemValue="#{guia.codigo}"/>
+                                <!--                        <f:selectItem itemLabel="Seleccione un Tipo de Vehiculo"
+                                                                      noSelectionOption="true"/>
+                                                        <f:selectItem itemLabel="Automovil" selseValue="Automovil"/>
+                                                        <f:selectItem itemLabel="Camioneta" itemValue="Camioneta"/>
+                                                        <f:selectItem itemLabel="Moto" itemValue="Moto"/>-->
+                                <p:ajax event="change" listener="#{registroEstacionamientoFormBean.actualizarHoraEntrada()}" 
+                                        update="grdRegistrarEntradaDeVehiculo" />
+                            </p:selectOneMenu>
+                            <p:outputLabel id="lblHoraEntrada" for="txtHoraEntrada"
+                                           value="Hora de Entrada"/>
+                            <p:calendar id="txtHoraEntrada" disabled="true"
+                                        pattern="HH:mm" timeOnly="true"
+                                        value="#{registroEstacionamientoFormBean.registroEstacionamientoBean.
+                                                 registroEstacionamiento.hEntrada}"/>
+                            <h:panelGroup/>
+                            <p:commandButton id="btnGrabarEntrada" value="Grabar" update="grdRegistrarEntradaDeVehiculo"
+                                             actionListener="#{registroEstacionamientoFormBean.mostrarConfirmacionRegistro()}"/>  
+                        </h:panelGrid>
+                        <p:confirmDialog global="false" showEffect="fade" hideEffect="fade"
+                                         header="Confirmacion" message="¿Confirma registrar nueva Entrada?"
+                                         widgetVar="confirmaRegistrarEntrada">
+                            <p:commandButton value="si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+                                             actionListener="#{registroEstacionamientoFormBean.guardarEstacionamiento()}"
+                                             oncomplete="PF('confirmaRegistrarEntrada').hide()"/>
+                            <p:commandButton value="no" styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+                                             oncomplete="PF('confirmaRegistrarEntrada').hide()"/>
+                        </p:confirmDialog>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

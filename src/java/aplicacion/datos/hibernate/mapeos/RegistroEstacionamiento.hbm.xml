@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="aplicacion.modelo.dominio.RegistroEstacionamiento" table="REGISTROS_ESTACIONAMIENTOS">
+    <id name="codigo" type="integer">
+      <column name="CODIGO"/>
+      <generator class="increment"/>
+    </id>
+    <property name="fecha" type="date">
+      <column name="FECHA"/>
+    </property>
+    <property name="patente" type="string">
+      <column name="PATENTE"/>
+    </property>
+    <property name="hEntrada" type="date">
+      <column name="HENTRADA"/>
+    </property>
+    <property name="hSalida" type="date">
+      <column name="HSALIDA"/>
+    </property>
+    <property name="precioTotal" type="double">
+      <column name="PRECIOTOTAL"/>
+    </property>
+    <many-to-one class="aplicacion.modelo.dominio.GuiaPrecio" fetch="join" name="guiaPrecio">
+      <column name="CODIGOPRECIO" precision="22" scale="0"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>
