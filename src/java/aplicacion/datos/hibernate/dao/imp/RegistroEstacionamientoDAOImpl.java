@@ -31,6 +31,7 @@ public class RegistroEstacionamientoDAOImpl extends HibernateDaoSupport implemen
         System.out.println("Actualiza registro de estacionamiento");
         System.out.println(registroEstacionamiento.getCodigo());
         System.out.println(registroEstacionamiento.getPatente());
+        System.out.println(registroEstacionamiento.getPrecioTotal());
         getHibernateTemplate().update(registroEstacionamiento);
         
     }
